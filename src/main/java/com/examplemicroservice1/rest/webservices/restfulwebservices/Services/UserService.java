@@ -28,4 +28,8 @@ public class UserService {
         User user =  userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not available for id "+id));
         return user;
     }
+
+    public void deleteUser(int id){
+        userRepository.deleteById(id);
+    }
 }

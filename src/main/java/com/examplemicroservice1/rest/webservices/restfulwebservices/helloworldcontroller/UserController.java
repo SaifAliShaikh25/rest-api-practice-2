@@ -57,4 +57,9 @@ public class UserController {
     public User getUser(@PathVariable("id") int id){
         return userService.findUser(id);
     }
+
+    @DeleteMapping("users/{id}")
+    public void deleteUser(@PathVariable("id") int id){
+         userService.deleteUser(id);
+    }
 }
