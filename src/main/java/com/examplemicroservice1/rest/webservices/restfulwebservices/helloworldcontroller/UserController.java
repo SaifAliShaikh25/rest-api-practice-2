@@ -8,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.examplemicroservice1.rest.webservices.restfulwebservices.exceptions.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.net.http.HttpResponse;
 import java.util.List;
 
@@ -24,11 +26,27 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping("users")
+    /*@PostMapping("users")
     public ResponseEntity<HttpResponse> saveUser(@Valid @RequestBody User user){
         try{
             userService.saveUser(user);
             return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch(Exception exp){
+            throw new UserNotSavedException("Failed to save user - "+user);
+        }
+    }*/
+
+    @PostMapping("users")
+    public ResponseEntity<User> saveUser(@Valid @RequestBody User user){
+        try{
+            User savedUser = userService.saveUser(user);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(savedUser.getId())
+                    .toUri();
+
+            return ResponseEntity.created(location).build();
         }
         catch(Exception exp){
             throw new UserNotSavedException("Failed to save user - "+user);
