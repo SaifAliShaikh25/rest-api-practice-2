@@ -1,3 +1,4 @@
+/*
 package com.examplemicroservice1.rest.webservices.restfulwebservices.exceptions;
 
 import org.springframework.http.HttpStatus;
@@ -19,3 +20,4 @@ public class UserNotFoundExceptionController {
     }
 
 }
+*/

@@ -25,10 +25,7 @@ public class UserService {
     }
 
     public User findUser(int id){
-       Optional<User> user =  Optional.of(userRepository.findById(id)).orElseThrow(() -> new UserNotFoundException("User not available for id "+id));
-        if(user.isPresent())
-            return user.get();
-        else
-            throw new UserNotFoundException("User not available for id "+id+". Hence throwing exception");
+        User user =  userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not available for id "+id));
+        return user;
     }
 }
